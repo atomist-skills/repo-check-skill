@@ -27,6 +27,11 @@
     :name "scope",
     :required false}}
   {:stringArray
+   {:description "deprecated properties"
+    :displayName "Deprecated property names"
+    :name "deprecated"
+    :required true}}
+  {:stringArray
    {:description
     "glob patterns for files that might be synchronized across Repos",
     :displayName "Glob Patterns",

@@ -1,0 +1,18 @@
+[:find (pull ?commit [:git.commit/sha
+                      {:git.commit/repo [:git.repo/source-id
+                                         :git.repo/name
+                                         :git.provider/url
+                                         {:git.repo/org [:github.org/installation-token
+                                                         :git.org/name
+                                                         :git.provider/url]}]}])
+ :in $ $before-db %
+ :where
+ (tx-push ?commit ?ref)
+ (get-config-value "branches" [] ?branch-names)
+ (or-join [?ref ?branch-names]
+   (and
+     [(empty? ?branch-names)]
+     (is-default-branch? ?ref))
+   (and
+     [?ref :git.ref/name ?branch-name]
+     (array-contains? ?branch-names ?branch-name)))]
