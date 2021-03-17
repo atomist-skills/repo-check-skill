@@ -34,7 +34,13 @@
  :homepageUrl
  "https://github.com/atomist-skills/repo-check-skill",
  :parameters
- [{:repoFilter
+ [{:string
+   {:description
+    "GitHub CheckRun name",
+    :displayName "CheckRun name",
+    :name "checkrun",
+    :required true}}
+  {:repoFilter
    {:description
     "The set of Repositories that should participate in file synchronization",
     :displayName "Repository Scope",

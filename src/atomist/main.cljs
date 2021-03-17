@@ -20,7 +20,18 @@
             [goog.string :as gstring]
             [goog.string.format]
             [atomist.async :refer-macros [go-safe <?]]
-            [atomist.local-runner :as l]))
+            [atomist.local-runner :as l]
+            [cljs-node-io.core :as io]
+            ["fast-glob" :as fast-glob]
+            ["js-yaml" :as yaml]))
+
+(defn yamls [cwd globs]
+  (->> globs
+       (mapcat #(seq (.sync fast-glob % #js {:cwd cwd})))
+       (map #(io/file cwd %))
+       (map #(.getPath %))
+       (map #(js->clj (.safeLoad yaml (io/slurp %) 'utf8')))
+       (mapcat keys))) 
 
 (defn create-ref-from-event
   [handler]
@@ -33,16 +44,33 @@
                                     :sha (:git.commit/sha commit)}
                       :token (:github.org/installation-token org))))))
 
+(defn scan [basedir globs]
+  (go-safe (->> (yamls basedir globs)
+                (map #(#{"snakeCase"} %))
+                (into []))))
+
 (defn perform-check [handler]
   (fn [request]
     (go-safe
-     (let [summary "Summary"]
-       (<? (handler (assoc request
-                           :atomist/status {:code 0 :reason "custom-check-complete"}
-                           :checkrun/output {:title "Custom Check"
-                                             :summary "summary"
-                                             :text summary}
-                           :checkrun/conclusion "neutral")))))))
+     (try
+       (let [warnings (<? (scan 
+                            (-> request :project :path) 
+                            (:glob-patterns request)))
+             summary (gstring/format "warnings:  %d" (count warnings))
+             text (str warnings)]
+         (<? (handler (assoc request
+                             :atomist/status {:code 0 :reason "custom-check-complete"}
+                             :checkrun/output {:title (:checkrun request)
+                                               :summary summary
+                                               :text text}
+                             :checkrun/conclusion "neutral"))))
+       (catch :default ex
+         (assoc request 
+                :atomist/status {:code 0 :reason "failed to run check"}
+                :checkrun/output {:title (:checkrun request)
+                                  :summary "Test Failed"
+                                  :text (str ex)}
+                :checkrun/conclusion "neutral"))))))
 
 (defn ^:export handler
   [data sendreponse]
@@ -53,7 +81,7 @@
        (api/mw-dispatch
         {:on-push.edn (-> (api/finished)
                           (perform-check)
-                          (api/with-github-check-run :name "custom-check")
+                          (api/with-github-check-run :name :checkrun)
                           (api/clone-ref)
                           (create-ref-from-event))})
        (api/add-skill-config)
