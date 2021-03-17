@@ -1,0 +1,44 @@
+{:description
+ "Detect files that have the same content across different Repositories and offer to synchronize them.",
+ :license "unknown",
+ :resourceProviders
+ [{:name "github",
+   :description "GitHub",
+   :typeName "GitHubAppResourceProvider",
+   :minRequired 1,
+   :maxAllowed 1}
+  {:name "slack",
+   :description "Slack",
+   :typeName "SlackResourceProvider",
+   :minRequired 0,
+   :maxAllowed 1}],
+ :displayName "Repository Checks Skill",
+ :name "repo-check-skill",
+ :author "slimslenderslacks",
+ :iconUrl
+ "https://raw.githubusercontent.com/cljs/logo/master/cljs.png",
+ :homepageUrl
+ "https://github.com/atomist-skills/repo-check-skill",
+ :parameters
+ [{:repoFilter
+   {:description
+    "The set of Repositories that should participate in file synchronization",
+    :displayName "Repository Scope",
+    :name "scope",
+    :required false}}
+  {:stringArray
+   {:description
+    "glob patterns for files that might be synchronized across Repos",
+    :displayName "Glob Patterns",
+    :name "glob-patterns",
+    :placeHolder "**/*.yaml",
+    :required true,
+    :minRequired 1}}],
+ :namespace "atomist",
+ :artifacts
+ {:gcf
+  [{:name "package-cljs-skill",
+    :entryPoint "eventhandler",
+    :memory 512, 
+    :runtime "nodejs10", 
+    :timeout 60}]}}
