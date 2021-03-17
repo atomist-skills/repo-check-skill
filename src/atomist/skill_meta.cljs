@@ -3,6 +3,6 @@
 
 (def module-name "repo-check-skill")
 (def path ".")
-(def version "0.1.3")
-(def tag "0.1.3")
-(def generated-at "2021-03-17T07:03:43Z")
+(def version "0.2.0")
+(def tag "0.2.0")
+(def generated-at "2021-03-17T07:04:28Z")
