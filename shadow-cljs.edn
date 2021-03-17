@@ -1,4 +1,4 @@
-{:deps {:aliases [:dev :test]},
+{:deps true,
  :builds
  {:dev
   {:target :node-library,
