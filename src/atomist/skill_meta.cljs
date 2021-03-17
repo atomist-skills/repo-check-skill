@@ -5,8 +5,4 @@
 (def path ".")
 (def version "0.1.3")
 (def tag "0.1.3")
-<<<<<<< HEAD
-(def generated-at "2021-03-17T06:59:44Z")
-=======
-(def generated-at "2021-03-17T06:35:58Z")
->>>>>>> Bump repo-check-skill to 0.1.3 and spit metadata
+(def generated-at "2021-03-17T07:03:43Z")
