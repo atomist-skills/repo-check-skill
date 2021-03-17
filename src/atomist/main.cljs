@@ -31,7 +31,7 @@
        (map #(io/file cwd %))
        (map #(.getPath %))
        (map #(js->clj (.safeLoad yaml (io/slurp %) 'utf8')))
-       (mapcat keys))) 
+       (mapcat keys)))
 
 (defn create-ref-from-event
   [handler]
@@ -53,9 +53,9 @@
   (fn [request]
     (go-safe
      (try
-       (let [warnings (<? (scan 
-                            (-> request :project :path) 
-                            (:glob-patterns request)))
+       (let [warnings (<? (scan
+                           (-> request :project :path)
+                           (:glob-patterns request)))
              summary (gstring/format "warnings:  %d" (count warnings))
              text (str warnings)]
          (<? (handler (assoc request
@@ -65,7 +65,7 @@
                                                :text text}
                              :checkrun/conclusion "neutral"))))
        (catch :default ex
-         (assoc request 
+         (assoc request
                 :atomist/status {:code 0 :reason "failed to run check"}
                 :checkrun/output {:title (:checkrun request)
                                   :summary "Test Failed"
