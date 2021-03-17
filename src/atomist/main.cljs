@@ -44,9 +44,9 @@
                                     :sha (:git.commit/sha commit)}
                       :token (:github.org/installation-token org))))))
 
-(defn scan [basedir globs]
+(defn scan [basedir globs predicate]
   (go-safe (->> (yamls basedir globs)
-                (map #(#{"snakeCase"} %))
+                (map predicate)
                 (into []))))
 
 (defn perform-check [handler]
@@ -55,7 +55,8 @@
      (try
        (let [warnings (<? (scan
                            (-> request :project :path)
-                           (:glob-patterns request)))
+                           (:glob-patterns request)
+                           (into #{} (:deprecated request))))
              summary (gstring/format "warnings:  %d" (count warnings))
              text (str warnings)]
          (<? (handler (assoc request
