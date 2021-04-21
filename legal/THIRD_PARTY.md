@@ -6,16 +6,16 @@ This page details all runtime dependencies of `atomist-skill`.
 
 ### Summary
 
-| License                                                                                        | Count |
-| ---------------------------------------------------------------------------------------------- | ----- |
-| [Apache-2.0](#apache-20)                                                                       | 26    |
-| [BSD-2-Clause](#bsd-2-clause)                                                                  | 6     |
-| [BSD-3-Clause](#bsd-3-clause)                                                                  | 14    |
-| [CC0-1.0](#cc0-10)                                                                             | 1     |
-| [Custom: https://img.shields.io/badge/dynamic/json](#custom-httpsimgshieldsiobadgedynamicjson) | 1     |
-| [GPL-2.0](#gpl-20)                                                                             | 1     |
-| [ISC](#isc)                                                                                    | 19    |
-| [MIT](#mit)                                                                                    | 108   |
+| License                       | Count |
+| ----------------------------- | ----- |
+| [Apache-2.0](#apache-20)      | 26    |
+| [BSD-2-Clause](#bsd-2-clause) | 6     |
+| [BSD-3-Clause](#bsd-3-clause) | 14    |
+| [CC0-1.0](#cc0-10)            | 1     |
+| [GPL-2.0](#gpl-20)            | 1     |
+| [ISC](#isc)                   | 19    |
+| [MIT](#mit)                   | 108   |
+| [UNKNOWN](#unknown)           | 1     |
 
 #### Apache-2.0
 
@@ -91,12 +91,6 @@ Creative Commons Zero v1.0 Universal - [https://creativecommons.org/publicdomain
 | Name        | Version  | Publisher     | Repository                                                                             |
 | ----------- | -------- | ------------- | -------------------------------------------------------------------------------------- |
 | `type-fest` | `0.20.2` | Sindre Sorhus | [https://github.com/sindresorhus/type-fest](https://github.com/sindresorhus/type-fest) |
-
-#### Custom: https://img.shields.io/badge/dynamic/json
-
-| Name                | Version  | Publisher       | Repository |
-| ------------------- | -------- | --------------- | ---------- |
-| `@atomist/api-cljs` | `0.5.41` | jim@atomist.com |            |
 
 #### GPL-2.0
 
@@ -246,6 +240,12 @@ MIT License - [https://opensource.org/licenses/MIT](https://opensource.org/licen
 | `uuid`                   | `8.3.2`    |                      | [https://github.com/uuidjs/uuid](https://github.com/uuidjs/uuid)                                                                               |
 | `xdg-basedir`            | `4.0.0`    | Sindre Sorhus        | [https://github.com/sindresorhus/xdg-basedir](https://github.com/sindresorhus/xdg-basedir)                                                     |
 | `yocto-queue`            | `0.1.0`    | Sindre Sorhus        | [https://github.com/sindresorhus/yocto-queue](https://github.com/sindresorhus/yocto-queue)                                                     |
+
+#### UNKNOWN
+
+| Name                | Version  | Publisher       | Repository |
+| ------------------- | -------- | --------------- | ---------- |
+| `@atomist/api-cljs` | `0.5.44` | jim@atomist.com |            |
 
 ## Contact
 
